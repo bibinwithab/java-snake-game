@@ -11,7 +11,7 @@ public class GamePanel extends JPanel implements ActionListener {
     static final int SCREEN_HEIGHT = 700;
     static final int UNIT_SIZE = 25;
     static final int GAME_UNITS = (SCREEN_WIDTH * SCREEN_HEIGHT) / UNIT_SIZE;
-    static final int DELAY = 80; // Adjust this value to change game speed.
+    static final int DELAY = 80; 
     final int x[] = new int[GAME_UNITS];
     final int y[] = new int[GAME_UNITS];
     int bodyParts = 5;
@@ -26,7 +26,7 @@ public class GamePanel extends JPanel implements ActionListener {
     GamePanel() {
         random = new Random();
         this.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
-        this.setBackground(Color.black);
+        this.setBackground(new Color(20, 20, 20));
         this.setFocusable(true);
         this.addKeyListener(new MyKeyAdapter());
         startGame();
@@ -57,15 +57,15 @@ public class GamePanel extends JPanel implements ActionListener {
     public void draw(Graphics g) {
         if (running) {
 
-            g.setColor(Color.green);
+            g.setColor(Color.gray);
             g.fillOval(appleX, appleY, UNIT_SIZE, UNIT_SIZE);
 
             for (int i = 0; i < bodyParts; i++) {
                 if (i == 0) {
-                    g.setColor(Color.red);
+                    g.setColor(new Color(255, 255, 255));
                     g.fillRect(x[i], y[i], UNIT_SIZE, UNIT_SIZE);
                 } else {
-                    g.setColor(new Color(255, 106, 95));
+                    g.setColor(new Color(100, 100, 100));
                     g.fillRect(x[i], y[i], UNIT_SIZE, UNIT_SIZE);
                 }
             }
@@ -116,12 +116,12 @@ public class GamePanel extends JPanel implements ActionListener {
     }
 
     public void checkCollisions() {
-        // Check if the snake hits the borders of the screen
+        
         if (x[0] < 0 || x[0] >= SCREEN_WIDTH || y[0] < 0 || y[0] >= SCREEN_HEIGHT) {
             running = false;
         }
 
-        // Check if the snake collides with itself
+        
         for (int i = 1; i < bodyParts; i++) {
             if (x[i] == x[0] && y[i] == y[0]) {
                 running = false;
@@ -134,13 +134,13 @@ public class GamePanel extends JPanel implements ActionListener {
     }
 
     public void gameOver(Graphics g) {
-        // Game Over text
+        
         g.setColor(Color.red);
         g.setFont(new Font("Arial", Font.BOLD, 75));
         FontMetrics metrics = getFontMetrics(g.getFont());
         g.drawString("Game Over", (SCREEN_WIDTH - metrics.stringWidth("Game Over")) / 2, SCREEN_HEIGHT / 2);
 
-        // Score text
+        
         g.setColor(Color.white);
         g.setFont(new Font("Arial", Font.BOLD, 40));
         FontMetrics metrics2 = getFontMetrics(g.getFont());
